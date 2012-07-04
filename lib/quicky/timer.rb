@@ -1,0 +1,65 @@
+module Quicky
+
+  class Timer
+
+    def initialize
+      @collector = {}
+    end
+
+    def loop(name, x, &blk)
+      x.times do |i|
+        time(name, &blk)
+      end
+    end
+
+    def time(name, &blk)
+      t = Time.now
+      yield
+      duration = Time.now.to_f - t.to_f
+      #puts 'duration=' + duration.to_s
+      r = TimeResult.new(duration)
+      @collector[name] ||= TimeCollector.new(name)
+      @collector[name] << r
+      r
+    end
+
+    def results(name=nil)
+      if name
+        return @collector[name]
+      end
+      @collector
+    end
+  end
+
+  class TimeCollector
+    attr_accessor :name
+    def initialize(name)
+      @name = name
+      @collector = []
+      @total_duration = 0.0
+    end
+
+    def <<(val)
+      # pull out duration for totals
+      @total_duration += val.duration
+      @collector << val
+    end
+
+    def duration
+      @total_duration / @collector.size
+    end
+
+    def total_duration
+      @total_duration
+    end
+  end
+
+  class TimeResult
+
+    attr_accessor :duration
+
+    def initialize(duration)
+      @duration = duration
+    end
+  end
+end

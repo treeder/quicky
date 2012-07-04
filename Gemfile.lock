@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    quicky (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    test-unit (2.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  quicky!
+  test-unit
