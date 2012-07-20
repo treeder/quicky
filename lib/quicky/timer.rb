@@ -6,13 +6,19 @@ module Quicky
       @collector = {}
     end
 
-    def loop(name, x, &blk)
+    def loop(name, x, options={}, &blk)
+      if options[:warmup]
+        options[:warmup].times do |i|
+          puts "Warming up... #{i}"
+          yield
+        end
+      end
       x.times do |i|
-        time(name, &blk)
+        time(name, options, &blk)
       end
     end
 
-    def time(name, &blk)
+    def time(name, options={}, &blk)
       t = Time.now
       yield
       duration = Time.now.to_f - t.to_f
