@@ -28,6 +28,17 @@ class TestBasics < TestBase
     assert quicky.results(:test2).duration >= 1 && quicky.results(:test2).duration < 2
     assert quicky.results(:test2).total_duration >= 10
 
+    quicky = Quicky::Timer.new
+    quicky.loop_for(:test3, 10) do |i|
+      puts 'sleeping'
+      sleep 0.5
+    end
+    p quicky.results(:test3).inspect
+    p quicky.results(:test3).duration
+    p quicky.results.count
+    assert quicky.results(:test3).duration >= 0.5 && quicky.results(:test3).duration < 1
+    assert quicky.results(:test3).total_duration >= 5
+
   end
 
 end
