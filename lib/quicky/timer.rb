@@ -52,16 +52,22 @@ module Quicky
   end
 
   class TimeCollector
+    INT_MAX = ( (2 ** (32 - 2)) - 1 )
+
     attr_accessor :name
     def initialize(name)
       @name = name
       @collector = []
       @total_duration = 0.0
+      @max_duration = 0.0
+      @min_duration = INT_MAX
     end
 
     def <<(val)
       # pull out duration for totals
       @total_duration += val.duration
+      @max_duration = val.duration if val.duration > @max_duration
+      @min_duration = val.duration if val.duration < @min_duration
       @collector << val
     end
 
@@ -71,6 +77,14 @@ module Quicky
 
     def total_duration
       @total_duration
+    end
+
+    def max_duration
+      @max_duration
+    end
+
+    def min_duration
+      @min_duration
     end
 
     def count

@@ -33,11 +33,15 @@ class TestBasics < TestBase
       puts 'sleeping'
       sleep 0.5
     end
-    p quicky.results(:test3).inspect
-    p quicky.results(:test3).duration
+    result = quicky.results(:test3)
+    p result.inspect
+    p result.duration
     p quicky.results.count
-    assert quicky.results(:test3).duration >= 0.5 && quicky.results(:test3).duration < 1
-    assert quicky.results(:test3).total_duration >= 5
+    assert result.duration >= 0.5 && result.duration < 1
+    assert result.total_duration >= 5
+    assert result.min_duration < 0.55 && result.min_duration > 0.1
+    assert result.max_duration > 0.5 && result.max_duration < 0.7
+
 
   end
 
