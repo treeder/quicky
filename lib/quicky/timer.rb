@@ -1,9 +1,11 @@
+require_relative 'results_hash'
+
 module Quicky
 
   class Timer
 
     def initialize
-      @collector = {}
+      @collector = ResultsHash.new
     end
 
     def loop(name, x, options={}, &blk)
@@ -52,9 +54,10 @@ module Quicky
   end
 
   class TimeCollector
-    INT_MAX = ( (2 ** (32 - 2)) - 1 )
+    INT_MAX = ((2 ** (32 - 2)) - 1)
 
     attr_accessor :name
+
     def initialize(name)
       @name = name
       @collector = []
@@ -89,6 +92,17 @@ module Quicky
 
     def count
       @collector.size
+    end
+
+    def to_hash
+      {
+          name: self.name,
+          count: self.count,
+          duration: self.duration,
+          total_duration: self.total_duration,
+          max_duration: self.max_duration,
+          min_duration: self.min_duration
+      }
     end
 
   end

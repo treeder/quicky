@@ -42,6 +42,9 @@ class TestBasics < TestBase
     assert result.min_duration < 0.55 && result.min_duration > 0.1
     assert result.max_duration > 0.5 && result.max_duration < 0.7
 
+    hash = quicky.results.to_hash
+    p hash
+    assert hash[:test3][:duration] >= 0.5
 
   end
 
