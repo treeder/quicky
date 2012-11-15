@@ -42,9 +42,19 @@ class TestBasics < TestBase
     assert result.min_duration < 0.55 && result.min_duration > 0.1
     assert result.max_duration > 0.5 && result.max_duration < 0.7
 
-    hash = quicky.results.to_hash
+    r1 = quicky.results
+    p r1
+    hash = r1.to_hash
     p hash
     assert hash[:test3][:duration] >= 0.5
+
+    r2 = Quicky::ResultsHash.from_hash(hash)
+    p r2
+    assert_equal r1.size, r2.size
+    r1.each_pair do |k, v|
+      # v should be a TimeCollector
+      assert_equal v.count, r2[k].count
+    end
 
   end
 

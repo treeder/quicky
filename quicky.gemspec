@@ -5,7 +5,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["treeder@gmail.com"]
   gem.description   = "Rest client wrapper that chooses best installed client."
   gem.summary       = "Rest client wrapper that chooses best installed client."
-  gem.homepage      = "https://github.com/iron-io/quicky"
+  gem.homepage      = "https://github.com/treeder/quicky"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

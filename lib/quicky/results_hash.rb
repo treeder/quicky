@@ -10,6 +10,23 @@ module Quicky
       end
       ret
     end
-  end
 
+    # if given the same results from to_hash, this will recreate the ResultsHash
+    def self.from_hash(h)
+      rh = ResultsHash.new
+      h.each_pair do |k,v|
+        rh[k] = TimeCollector.from_hash(v)
+      end
+      rh
+    end
+
+    # merges multiple ResultsHash's
+    def merge!(rh)
+      rh.each_pair do |k,v|
+        # v is a TimeCollector
+        self[k].merge!(v)
+      end
+    end
+  end
 end
+

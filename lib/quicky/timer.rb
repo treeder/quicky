@@ -56,7 +56,7 @@ module Quicky
   class TimeCollector
     INT_MAX = ((2 ** (32 - 2)) - 1)
 
-    attr_accessor :name
+    attr_accessor :name, :total_duration, :count, :max_duration, :min_duration
 
     def initialize(name)
       @name = name
@@ -64,34 +64,24 @@ module Quicky
       @total_duration = 0.0
       @max_duration = 0.0
       @min_duration = INT_MAX
+      @count = 0
     end
 
     def <<(val)
       # pull out duration for totals
       @total_duration += val.duration
-      @max_duration = val.duration if val.duration > @max_duration
-      @min_duration = val.duration if val.duration < @min_duration
+      update_max_min(val.duration)
       @collector << val
+      @count += 1
+    end
+
+    def update_max_min(duration)
+      @max_duration = duration if duration > @max_duration
+      @min_duration = duration if duration < @min_duration
     end
 
     def duration
       @total_duration / @collector.size
-    end
-
-    def total_duration
-      @total_duration
-    end
-
-    def max_duration
-      @max_duration
-    end
-
-    def min_duration
-      @min_duration
-    end
-
-    def count
-      @collector.size
     end
 
     def to_hash
@@ -103,6 +93,21 @@ module Quicky
           max_duration: self.max_duration,
           min_duration: self.min_duration
       }
+    end
+
+    def self.from_hash(h)
+      t = TimeCollector.new(h['name'])
+      h.each_pair do |k,v|
+        t.instance_variable_set("@#{k}", v)
+      end
+      t
+    end
+
+    def merge!(tc)
+      self.count += tc.count
+      self.total_duration += tc.total_duration
+      update_max_min(tc.max_duration)
+      update_max_min(tc.min_duration)
     end
 
   end
