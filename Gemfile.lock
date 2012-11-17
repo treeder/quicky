@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    quicky (0.1.1)
+    quicky (0.2.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    test-unit (2.5.1)
+    test-unit (2.5.2)
 
 PLATFORMS
   ruby

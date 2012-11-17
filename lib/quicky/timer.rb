@@ -81,7 +81,7 @@ module Quicky
     end
 
     def duration
-      @total_duration / @collector.size
+      @total_duration / self.count
     end
 
     def to_hash
