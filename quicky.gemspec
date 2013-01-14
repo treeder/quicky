@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.version       = Quicky::VERSION
 
   gem.required_rubygems_version = ">= 1.3.6"
-  gem.required_ruby_version = Gem::Requirement.new(">= 1.9")
+  gem.required_ruby_version = Gem::Requirement.new(">= 1.8")
 
   gem.add_development_dependency "test-unit"
 

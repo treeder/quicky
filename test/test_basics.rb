@@ -1,9 +1,8 @@
 # Put config.yml file in ~/Dropbox/configs/ironmq_gem/test/config.yml
 
-gem 'test-unit'
 require 'test/unit'
 require 'yaml'
-require_relative 'test_base'
+require 'test_base'
 
 class TestBasics < TestBase
   def setup
@@ -19,7 +18,7 @@ class TestBasics < TestBase
     assert quicky.results(:test1).duration > 2
 
     quicky = Quicky::Timer.new
-    quicky.loop(:test2, 10) do |i|
+    quicky.loop(:test2, 10) do
       puts 'sleeping'
       sleep 1
     end
@@ -29,7 +28,7 @@ class TestBasics < TestBase
     assert quicky.results(:test2).total_duration >= 10
 
     quicky = Quicky::Timer.new
-    quicky.loop_for(:test3, 10) do |i|
+    quicky.loop_for(:test3, 10) do
       puts 'sleeping'
       sleep 0.5
     end
