@@ -56,7 +56,7 @@ module Quicky
   class TimeCollector
     INT_MAX = ((2 ** (32 - 2)) - 1)
 
-    attr_accessor :name, :total_duration, :count, :max_duration, :min_duration
+    attr_accessor :created_at, :name, :total_duration, :count, :max_duration, :min_duration
 
     def initialize(name)
       @name = name
@@ -65,6 +65,7 @@ module Quicky
       @max_duration = 0.0
       @min_duration = INT_MAX
       @count = 0
+      @created_at = Time.now
     end
 
     def <<(val)
@@ -86,6 +87,7 @@ module Quicky
 
     def to_hash
       {
+          created_at: self.created_at,
           name: self.name,
           count: self.count,
           duration: self.duration,
