@@ -1,1 +1,1 @@
-require_relative 'quicky/timer'
+require 'quicky/timer'

@@ -1,4 +1,4 @@
-require_relative 'results_hash'
+require 'quicky/results_hash'
 
 module Quicky
 
@@ -86,12 +86,12 @@ module Quicky
 
     def to_hash
       {
-          name: self.name,
-          count: self.count,
-          duration: self.duration,
-          total_duration: self.total_duration,
-          max_duration: self.max_duration,
-          min_duration: self.min_duration
+          :name => self.name,
+          :count => self.count,
+          :duration => self.duration,
+          :total_duration => self.total_duration,
+          :max_duration => self.max_duration,
+          :min_duration => self.min_duration
       }
     end
 
