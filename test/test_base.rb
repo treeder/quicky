@@ -1,4 +1,3 @@
-gem 'test-unit'
 require 'test/unit'
 require 'yaml'
 begin
@@ -14,5 +13,8 @@ class TestBase < Test::Unit::TestCase
     puts 'setup'
 
 
+  end
+
+  def test_fake
   end
 end
