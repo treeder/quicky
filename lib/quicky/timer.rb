@@ -12,11 +12,11 @@ module Quicky
       if options[:warmup]
         options[:warmup].times do |i|
           #puts "Warming up... #{i}"
-          yield
+          yield i
         end
       end
       x.times do |i|
-        time(name, options, &blk)
+        time_i(i, name, options, &blk)
       end
     end
 
@@ -26,20 +26,27 @@ module Quicky
       if options[:warmup]
         options[:warmup].times do |i|
           #puts "Warming up... #{i}"
-          yield
+          yield i
         end
       end
+      i = 0
       while Time.now < end_at
-        time(name, options, &blk)
+        time_i(i, name, options, &blk)
+        i += 1
       end
     end
 
     def time(name, options={}, &blk)
+      time_i(0, name, options, &blk)
+    end
+
+    def time_i(i, name, options={}, &blk)
       t = Time.now
-      yield
+      yield i
       duration = Time.now.to_f - t.to_f
       #puts 'duration=' + duration.to_s
       r = TimeResult.new(duration)
+      # could base the i on this collection size then don't need time_i
       @collector[name] ||= TimeCollector.new(name)
       @collector[name] << r
       r
